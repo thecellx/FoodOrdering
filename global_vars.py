@@ -25,4 +25,3 @@ actions = {
 
 sales_tax = 0.15
 
-cart = {}
