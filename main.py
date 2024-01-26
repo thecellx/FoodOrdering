@@ -1,5 +1,5 @@
-from global_vars import *
 from cart import Cart
+from global_vars import *
 from sys import exit
 
 
@@ -14,7 +14,6 @@ def display_food_menu():
         print(f"({sku[3:]}) {item['name']}: ${item['price']}")
 
 
-#TODO We can think some of the following functions as methods of a cart object (a singleton)
 def add_to_cart():
     display_food_menu()
     sku = get_sku()

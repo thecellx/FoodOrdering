@@ -12,7 +12,7 @@ class Cart(Iterable):
 
     def add(self, sku: str, qty: int = 1):
         if sku not in food_menu:
-            raise ValueError("Invalid SKU. Please check that the entered menu item is correct")
+            raise ValueError("Invalid SKU {sku}.")
         if sku in self.cart:
             self.cart[sku] += qty
         else:
@@ -20,15 +20,15 @@ class Cart(Iterable):
 
     def remove(self, sku: str):
         if sku not in self.cart:
-            raise UserWarning("The item is not in the cart!")
+            raise UserWarning("The item {sku} is not in the cart!")
         qty = self.cart.pop(sku)
         return qty
 
     def change_qty(self, sku: str, new_qty: int):
         if sku not in self.cart:
-            raise UserWarning("The item is not in the cart!")
+            raise UserWarning("The item {sku} is not in the cart!")
         if new_qty < 0:
-            raise ValueError("Invalid quantity value {new_qty}")
+            raise ValueError("Invalid quantity value {new_qty} for {sku}.")
         elif new_qty > 0:
             old_qty = self.cart[sku]
             self.cart[sku] = new_qty
