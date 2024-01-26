@@ -1,5 +1,9 @@
+from cart import Cart
 from global_vars import *
 from sys import exit
+
+
+cart = Cart()
 
 
 def display_food_menu():
@@ -10,34 +14,26 @@ def display_food_menu():
         print(f"({sku[3:]}) {item['name']}: ${item['price']}")
 
 
-#TODO We can think some of the following functions as methods of a cart object (a singleton)
-def add_to_cart(sku: str, qty: int = 1):
-    if sku not in food_menu:
-        raise ValueError("Invalid SKU. Please check that the entered menu item is correct")
-    if sku in cart:
-        cart[sku] += qty
-    else:
-        cart[sku] = qty
+def add_to_cart():
+    display_food_menu()
+    sku = get_sku()
+    qty = get_qty()
+    cart.add(sku, qty)
     print(f"Added {qty} of {food_menu[sku]['name']} to the cart.")
 
 
 def remove_from_cart(sku: str):
-    if sku not in cart:
-        raise UserWarning("The item is not in the cart!")
-    qty = cart.pop(sku)
+    view_cart()
+    sku = get_sku()
+    qty = cart.remove(sku)
     print(f"Removed all {qty} of {food_menu[sku]['name']} from the cart.")
 
 
-def modify_qty_cart(sku: str, new_qty: int):
-    if sku not in cart:
-        raise UserWarning("The item is not in the cart!")
-    if new_qty < 0:
-        raise ValueError("Invalid quantity value {new_qty}")
-    elif new_qty > 0:
-        old_qty = cart[sku]
-        cart[sku] = new_qty
-    else:
-        old_qty = cart.pop(sku)
+def modify_qty_cart():
+    view_cart()
+    sku = get_sku()
+    new_qty = get_qty()
+    old_qty = cart.change_qty(sku, new_qty)
     print(f"Changed quantity of {food_menu[sku]['name']} in the cart from {old_qty} to {new_qty}.")
 
 
@@ -46,7 +42,7 @@ def view_cart():
     # TODO alignment to be improved
     print("SKU\t\tName\t\t\tPrice\tQuantity\tTotal per item")
     subtotal = 0
-    for sku, qty in cart.items():
+    for sku, qty in cart:
         price_per_item = food_menu[sku]['price']
         total_price_per_item = price_per_item * qty
         subtotal += (price_per_item * qty)
@@ -100,19 +96,11 @@ def display_actions():
             print("Value for the action is not correct.")
             continue
         if choice == 1:
-            display_food_menu()
-            sku = get_sku()
-            qty = get_qty()
-            add_to_cart(sku, qty)
+            add_to_cart()
         elif choice == 2:
-            view_cart()
-            sku = get_sku()
-            remove_from_cart(sku)
+            remove_from_cart()
         elif choice == 3:
-            view_cart()
-            sku = get_sku()
-            qty = get_qty()
-            modify_qty_cart(sku, qty)
+            modify_qty_cart()
         elif choice == 4:
             view_cart()
         elif choice == 5:
