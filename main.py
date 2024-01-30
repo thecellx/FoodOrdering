@@ -1,32 +1,36 @@
 from cart import Cart
 from global_vars import *
+from menu import Menu
 from sys import exit
 
 
+food_menu = Menu()
 cart = Cart()
 
 
 def display_food_menu():
     print('\n***** MENU *****\n')
-    for sku, item in food_menu.items():
+    for sku, name, price in food_menu:
         # TODO The index displayed should not be a slice of the SKU. We would need some kind of mapping,
         # or maybe food_menu should be just a list rather than a dictionary.
-        print(f"({sku[3:]}) {item['name']}: ${item['price']}")
+        print(f"({sku[3:]}) {name}: ${price}")
 
 
 def add_to_cart():
     display_food_menu()
     sku = get_sku()
     qty = get_qty()
+    if not food_menu.does_item_exist(sku):
+        raise ValueError("Invalid SKU {sku}.")
     cart.add(sku, qty)
-    print(f"Added {qty} of {food_menu[sku]['name']} to the cart.")
+    print(f"Added {qty} of {food_menu.get_name_by_sku(sku)} to the cart.")
 
 
-def remove_from_cart(sku: str):
+def remove_from_cart():
     view_cart()
     sku = get_sku()
     qty = cart.remove(sku)
-    print(f"Removed all {qty} of {food_menu[sku]['name']} from the cart.")
+    print(f"Removed all {qty} of {food_menu.get_name_by_sku(sku)} from the cart.")
 
 
 def modify_qty_cart():
@@ -34,7 +38,7 @@ def modify_qty_cart():
     sku = get_sku()
     new_qty = get_qty()
     old_qty = cart.change_qty(sku, new_qty)
-    print(f"Changed quantity of {food_menu[sku]['name']} in the cart from {old_qty} to {new_qty}.")
+    print(f"Changed quantity of {food_menu.get_name_by_sku(sku)} in the cart from {old_qty} to {new_qty}.")
 
 
 def view_cart():
@@ -43,10 +47,11 @@ def view_cart():
     print("SKU\t\tName\t\t\tPrice\tQuantity\tTotal per item")
     subtotal = 0
     for sku, qty in cart:
-        price_per_item = food_menu[sku]['price']
+        item_name = food_menu.get_name_by_sku(sku)
+        price_per_item = food_menu.get_price_by_sku(sku)
         total_price_per_item = price_per_item * qty
         subtotal += (price_per_item * qty)
-        print(f"({sku[3:]})\t\t{food_menu[sku]['name']}\t\t${price_per_item}\tx\t{qty} = {total_price_per_item}")
+        print(f"({sku[3:]})\t\t{item_name}\t\t${price_per_item}\tx\t{qty} = {total_price_per_item}")
     # TODO for taxes and total, only 2 decimal digits are needed
     taxes = subtotal * sales_tax
     total = subtotal + taxes
@@ -72,8 +77,8 @@ def get_sku():
     item_idx = input()
     # TODO add some checks on item_idx
     sku = "sku" + item_idx
-    if sku not in food_menu:
-        raise ValueError("Item not found. Check the value of the index.")
+    if not food_menu.does_item_exist(sku):
+        raise ValueError("Item {sku} not found. Check the value of the index.")
     return sku
 
 

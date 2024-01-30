@@ -1,0 +1,4 @@
+marshmallow==3.20.2
+packaging==23.2
+typing==3.7.4.3
+typing_extensions==4.9.0
