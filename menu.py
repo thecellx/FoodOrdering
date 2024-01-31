@@ -47,4 +47,3 @@ class Menu:
             sku, name, price = item.values()
             menu_dict[sku] = {'name': name, 'price': price}
         return menu_dict
-
