@@ -1,0 +1,52 @@
+[
+  {
+    "sku": "sku1",
+    "name": "Hamburger",
+    "price": 6.51
+  },
+  {
+    "sku": "sku2",
+    "name": "Cheeseburger",
+    "price": 7.75
+  },
+  {
+    "sku": "sku3",
+    "name": "Milkshake",
+    "price": 5.99
+  },
+  {
+    "sku": "sku4",
+    "name": "Fries",
+    "price": 2.39
+  },
+  {
+    "sku": "sku5",
+    "name": "Sub",
+    "price": 5.87
+  },
+  {
+    "sku": "sku6",
+    "name": "Ice Cream",
+    "price": 1.55
+  },
+  {
+    "sku": "sku7",
+    "name": "Fountain Drink",
+    "price": 3.45
+  },
+  {
+    "sku": "sku8",
+    "name": "Cookie",
+    "price": 3.15
+  },
+  {
+    "sku": "sku9",
+    "name": "Brownie",
+    "price": 2.46
+  },
+  {
+    "sku": "sku10",
+    "name": "Sauce",
+    "price": 0.75
+  }
+]

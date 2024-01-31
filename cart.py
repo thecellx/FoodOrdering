@@ -11,8 +11,6 @@ class Cart(Iterable):
         return iter(self.cart.items())
 
     def add(self, sku: str, qty: int = 1):
-        if sku not in food_menu:
-            raise ValueError("Invalid SKU {sku}.")
         if sku in self.cart:
             self.cart[sku] += qty
         else:

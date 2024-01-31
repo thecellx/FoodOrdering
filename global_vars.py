@@ -14,6 +14,7 @@ food_menu = {
     'sku10': {'name': 'Sauce', 'price': 0.75},
 }
 
+
 actions = {
     1: "Add a new menu item to cart",
     2: "Remove an item from the cart",
