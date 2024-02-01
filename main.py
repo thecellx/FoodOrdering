@@ -51,7 +51,7 @@ class FoodOrdering:
             subtotal += (price_per_item * qty)
             print(f"({sku[3:]})\t\t{item_name}\t\t${price_per_item}\tx\t{qty} = {total_price_per_item}")
         # TODO for taxes and total, only 2 decimal digits are needed
-        taxes = subtotal * sales_tax
+        taxes = round(subtotal * sales_tax, 2)
         total = subtotal + taxes
         print(f"Subtotal\t\t\t\t\t\t\t\t\t{subtotal}")
         print(f"Taxes\t\t\t\t\t\t\t\t\t{taxes}")
