@@ -43,7 +43,7 @@ class FoodOrdering:
 
     def checkout(self):
         self.data_ui.display_cart(self.cart, self.food_menu)
-        action = self.data_ui.request_confirmation("Are you sure you want to confirm your purchase? (Y/N)")
+        action = self.data_ui.request_confirmation("Are you sure you want to confirm your purchase?")
         if action.upper() == 'Y':
             # TODO Add logic to collect shipping and payment information and process them
             self.data_ui.display_msg("Order confirmed!\nYou can now start a new order.")
