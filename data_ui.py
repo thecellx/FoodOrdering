@@ -92,10 +92,11 @@ class TextDataUI(DataUI):
         return sku
 
     def get_qty(self, allow_zero: bool = False):
-        print("Enter the quantity: ")
-        qty = input()
         min_qty = 0 if allow_zero else 1
-        while not qty.isnumeric() or int(qty) < min_qty:
-            self.display_error(f"Incorrect quantity. Value needs to be a number greater than {min_qty}.")
+        while True:
+            print("Enter the quantity: ")
             qty = input()
+            if qty.isnumeric() and int(qty) >= min_qty:
+                break
+            self.display_error(f"Incorrect quantity. Value needs to be a number greater than {min_qty}.")
         return int(qty)
