@@ -1,4 +1,3 @@
-from global_vars import *
 from collections.abc import Iterable
 
 
@@ -10,6 +9,12 @@ class Cart(Iterable):
     def __iter__(self):
         return iter(self.cart.items())
 
+    def __len__(self) -> int:
+        return sum(self.cart.values())
+
+    def is_empty(self) -> bool:
+        return len(self.cart) == 0
+
     def add(self, sku: str, qty: int = 1):
         if qty < 1:
             raise ValueError("Invalid quantity value {new_qty} for {sku}.")
@@ -18,13 +23,13 @@ class Cart(Iterable):
         else:
             self.cart[sku] = qty
 
-    def remove(self, sku: str):
+    def remove(self, sku: str) -> int:
         if sku not in self.cart:
             raise UserWarning("The item {sku} is not in the cart!")
         qty = self.cart.pop(sku)
         return qty
 
-    def change_qty(self, sku: str, new_qty: int):
+    def change_qty(self, sku: str, new_qty: int) -> int:
         if sku not in self.cart:
             raise UserWarning("The item {sku} is not in the cart!")
         if new_qty < 0:

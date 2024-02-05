@@ -39,11 +39,18 @@ class FoodOrdering:
             f'Changed quantity of {self.food_menu.get_name_by_sku(sku)} in the cart from {old_qty} to {new_qty}.'
         )
 
-    # TODO evaluate if this method is really necessary
     def view_cart(self):
+        if self.cart.is_empty():
+            self.data_ui.display_msg("Your cart is empty.")
+            return
+
         self.data_ui.display_cart(self. cart, self.food_menu)
 
     def checkout(self):
+        if self.cart.is_empty():
+            self.data_ui.display_msg("Your cart is empty.")
+            return
+
         self.data_ui.display_cart(self.cart, self.food_menu)
         action = self.data_ui.request_confirmation("Are you sure you want to confirm your purchase?")
         if action.upper() == 'Y':
