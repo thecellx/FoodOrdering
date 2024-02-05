@@ -33,11 +33,13 @@ class FoodOrdering:
         sku = self.data_ui.get_sku()
         if not self.food_menu.does_item_exist(sku):
             raise ValueError("Invalid SKU {sku}.")
-        new_qty = self.data_ui.get_qty()
+        new_qty = self.data_ui.get_qty(allow_zero=True)
         old_qty = self.cart.change_qty(sku, new_qty)
-        self.data_ui.display_msg(f"Changed quantity of {self.food_menu.get_name_by_sku(sku)} in the cart from {old_qty} to {new_qty}.")
+        self.data_ui.display_msg(
+            f'Changed quantity of {self.food_menu.get_name_by_sku(sku)} in the cart from {old_qty} to {new_qty}.'
+        )
 
-    #TODO evaluate if this method is really necessary
+    # TODO evaluate if this method is really necessary
     def view_cart(self):
         self.data_ui.display_cart(self. cart, self.food_menu)
 

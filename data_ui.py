@@ -30,7 +30,7 @@ class DataUI(ABC):
         pass
 
     @abstractmethod
-    def get_qty(self):
+    def get_qty(self, allow_zero: bool = False):
         pass
 
     @abstractmethod
@@ -91,9 +91,11 @@ class TextDataUI(DataUI):
         sku = "sku" + item_idx
         return sku
 
-    def get_qty(self):
+    def get_qty(self, allow_zero: bool = False):
         print("Enter the quantity: ")
-        qty = int(input())
-        if qty < 1:
-            self.display_error("Incorrect quantity. Value needs to be at least 1.")
-        return qty
+        qty = input()
+        min_qty = 0 if allow_zero else 1
+        while not qty.isnumeric() or int(qty) < min_qty:
+            self.display_error(f"Incorrect quantity. Value needs to be a number greater than {min_qty}.")
+            qty = input()
+        return int(qty)
