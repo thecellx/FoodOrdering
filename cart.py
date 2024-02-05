@@ -11,6 +11,8 @@ class Cart(Iterable):
         return iter(self.cart.items())
 
     def add(self, sku: str, qty: int = 1):
+        if qty < 1:
+            raise ValueError("Invalid quantity value {new_qty} for {sku}.")
         if sku in self.cart:
             self.cart[sku] += qty
         else:
