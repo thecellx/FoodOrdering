@@ -57,7 +57,7 @@ class TextDataUI(DataUI):
     def display_cart(self, cart: Cart):
         print('\n***** YOUR CART *****\n')
         # TODO alignment to be improved
-        print("SKU\t\tName\t\t\tPrice\tQuantity\tTotal per item")
+        print("ITEM #\t\tName\t\t\tPrice\tQuantity\tTotal per item")
         subtotal = 0
         for sku, qty in cart:
             item_name = self._food_menu.get_name_by_sku(sku)
