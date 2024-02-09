@@ -9,10 +9,10 @@ class FoodOrdering:
     def __init__(self):
         self.food_menu = Menu()
         self.cart = Cart()
-        self.data_ui = TextDataUI()
+        self.data_ui = TextDataUI(self.food_menu)
 
     def add_to_cart(self):
-        self.data_ui.display_food_menu(self.food_menu)
+        self.data_ui.display_food_menu()
         sku = self.data_ui.get_sku()
         if not self.food_menu.does_item_exist(sku):
             raise ValueError("Invalid SKU {sku}.")
@@ -21,7 +21,7 @@ class FoodOrdering:
         self.data_ui.display_msg(f"Added {qty} of {self.food_menu.get_name_by_sku(sku)} to the cart.")
 
     def remove_from_cart(self):
-        self.data_ui.display_cart(self. cart, self.food_menu)
+        self.data_ui.display_cart(self. cart)
         sku = self.data_ui.get_sku()
         if not self.food_menu.does_item_exist(sku):
             raise ValueError("Invalid SKU {sku}.")
@@ -29,7 +29,7 @@ class FoodOrdering:
         self.data_ui.display_msg(f"Removed all {qty} of {self.food_menu.get_name_by_sku(sku)} from the cart.")
 
     def modify_qty_cart(self):
-        self.data_ui.display_cart(self. cart, self.food_menu)
+        self.data_ui.display_cart(self. cart)
         sku = self.data_ui.get_sku()
         if not self.food_menu.does_item_exist(sku):
             raise ValueError("Invalid SKU {sku}.")
@@ -44,14 +44,14 @@ class FoodOrdering:
             self.data_ui.display_msg("Your cart is empty.")
             return
 
-        self.data_ui.display_cart(self. cart, self.food_menu)
+        self.data_ui.display_cart(self. cart)
 
     def checkout(self):
         if self.cart.is_empty():
             self.data_ui.display_msg("Your cart is empty.")
             return
 
-        self.data_ui.display_cart(self.cart, self.food_menu)
+        self.data_ui.display_cart(self.cart)
         action = self.data_ui.request_confirmation("Are you sure you want to confirm your purchase?")
         if action.upper() == 'Y':
             # TODO Add logic to collect shipping and payment information and process them
