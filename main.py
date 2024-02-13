@@ -1,4 +1,5 @@
 from cart import Cart
+from config import Config
 from global_vars import *
 from menu import Menu
 from sys import exit
@@ -6,10 +7,11 @@ from data_ui import TextDataUI
 
 
 class FoodOrdering:
-    def __init__(self):
-        self.food_menu = Menu()
+    def __init__(self, config: Config):
+        self.food_menu = Menu(config)
         self.cart = Cart()
-        self.data_ui = TextDataUI(self.food_menu)
+        self.data_ui = TextDataUI(self.food_menu, config)
+        self.config = config
 
     def add_to_cart(self):
         self.data_ui.display_food_menu()
@@ -84,5 +86,6 @@ class FoodOrdering:
 
 
 if __name__ == '__main__':
-    app = FoodOrdering()
+    config = Config()
+    app = FoodOrdering(config)
     app.run()

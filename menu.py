@@ -1,13 +1,14 @@
 import json
 
+from config import Config
 from json_schemas.menu_item_schema import MenuItemSchema
 from marshmallow.exceptions import ValidationError
 from dict_types.menu_item_type import MenuItemDataType, MenuItemType
 
 
 class Menu:
-    def __init__(self):
-        self.food_menu = Menu._read_menu_from_file('menu.json')
+    def __init__(self, config: Config):
+        self.food_menu = Menu._read_menu_from_file(config.get('menu_rel_path'))
 
     def __iter__(self):
         for sku, item in self.food_menu.items():

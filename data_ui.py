@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from cart import Cart
+from config import Config
 from global_vars import *
 from menu import Menu
 
@@ -43,11 +44,12 @@ class DataUI(ABC):
 
 class TextDataUI(DataUI):
 
-    def __init__(self, food_menu: Menu):
+    def __init__(self, food_menu: Menu, config: Config):
         super().__init__(food_menu)
         # Dictionary to map SKUs to their indices. We assume the menu will never change during the execution
         # so we only initialize this map in the constructor
         self._sku_index_map = self._build_sku_index_map()
+        self.config = config
 
     def display_food_menu(self):
         print('\n***** MENU *****\n')
@@ -65,7 +67,7 @@ class TextDataUI(DataUI):
             total_price_per_item = price_per_item * qty
             subtotal += (price_per_item * qty)
             print(f"({self._sku_index_map[sku]})\t\t{item_name}\t\t${price_per_item}\tx\t{qty} = {total_price_per_item}")
-        taxes = round(subtotal * sales_tax, 2)
+        taxes = round(subtotal * self.config.get('sales_tax'), 2)
         total = round(subtotal + taxes, 2)
         print(f"Subtotal\t\t\t\t\t\t\t\t\t{subtotal}")
         print(f"Taxes\t\t\t\t\t\t\t\t\t{taxes}")

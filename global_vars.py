@@ -1,6 +1,4 @@
 
-app_name = "FoodOrders"
-
 actions = {
     1: "Add a new menu item to cart",
     2: "Remove an item from the cart",
@@ -9,6 +7,3 @@ actions = {
     5: "Checkout",
     6: "Exit",
 }
-
-sales_tax = 0.15
-

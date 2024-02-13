@@ -1,0 +1,5 @@
+{
+  "app_name": "FoodOrders",
+  "menu_rel_path": "menu.json",
+  "sales_tax": 0.15
+}
